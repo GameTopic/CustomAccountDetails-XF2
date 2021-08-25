@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template_modifications>
+  <modification type="public" template="account_details" modification_key="custom_account_details" description="account details page look trendy with this customisation" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:title>{{ phrase('account_details') }}</xf:title>
+
+<xf:wrap template="account_wrapper" />
+
+<xf:if is="!$xf.visitor.canEditProfile()">
+	<div class="blockMessage blockMessage--important">{{ phrase('your_full_account_details_not_currently_editable') }}</div>
+</xf:if>
+
+<xf:if is="$pendingUsernameChange">
+	<div class="blockMessage blockMessage--important">
+		{{ phrase('pending_username_change_message', {'username': $pendingUsernameChange.new_username}) }}
+	</div>
+</xf:if>
+
+<xf:form action="{{ link('account/account-details') }}" ajax="true" class="block" data-force-flash-message="true">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:formrow rowtype="{{ $xf.visitor.canChangeUsername() ? 'button' : '' }}"
+				label="{{ phrase('user_name') }}">
+
+				{$xf.visitor.username}
+				<xf:if is="$xf.visitor.canChangeUsername()">
+					<xf:button href="{{ link('account/username') }}" class="button--link" overlay="true">{{ phrase('change') }}</xf:button>
+				</xf:if>
+
+				<xf:if contentcheck="true">
+					<div class="formRow-explain">
+						<xf:contentcheck>
+							<xf:if is="$xf.visitor.username_date">
+								{{ phrase('your_username_was_last_changed_on_x', {'date': date_time($xf.visitor.username_date)}) }}
+							</xf:if>
+							<xf:if is="$xf.visitor.next_allowed_username_change">
+								{{ phrase('you_may_next_change_your_username_on_or_after_x', {'date': date($xf.visitor.next_allowed_username_change)}) }}
+							</xf:if>
+						</xf:contentcheck>
+					</div>
+				</xf:if>
+			</xf:formrow>
+
+			<xf:formrow rowtype="button"
+				label="{{ phrase('email') }}">
+
+				<xf:if is="$xf.visitor.email">
+					{$xf.visitor.email}
+				<xf:else />
+					<i>{{ phrase('none') }}</i>
+				</xf:if>
+				<xf:button href="{{ link('account/email') }}" class="button--link" overlay="true">{{ phrase('change') }}</xf:button>
+			</xf:formrow>
+
+			<xf:macro template="helper_account" name="email_options_row" arg-showExplain="{{ true }}" />
+
+			<xf:if is="$xf.visitor.canUploadAvatar()">
+				<xf:formrow
+					label="{{ phrase('avatar') }}"
+					explain="{{ phrase('click_image_to_change_your_avatar') }}">
+
+					<xf:avatar user="{$xf.visitor}" size="m" href="{{ link('account/avatar') }}" data-xf-click="overlay" />
+				</xf:formrow>
+			</xf:if>
+
+			<xf:if is="$xf.visitor.canUploadProfileBanner()">
+				<xf:formrow
+					label="{{ phrase('profile_banner') }}">
+
+					<xf:profilebanner user="$xf.visitor" size="l" class="memberProfileBanner--small" href="{{ link('account/banner') }}" overlay="true" hideempty="true" />
+					<xf:button href="{{ link('account/banner') }}" data-xf-click="overlay" class="button--link">{{ phrase('edit_profile_banner') }}</xf:button>
+				</xf:formrow>
+			</xf:if>
+
+			<xf:if is="$xf.visitor.canEditProfile()">
+				<xf:if is="{{ $xf.visitor.hasPermission('general', 'editCustomTitle') }}">
+					<xf:textboxrow name="user[custom_title]" value="{$xf.visitor.custom_title_}"
+						maxlength="{{ max_length($xf.visitor, 'custom_title') }}"
+						label="{{ phrase('custom_title') }}"
+						explain="{{ phrase('if_specified_replace_title_that_displays_under_name_in_posts') }}" />
+				</xf:if>
+
+				<hr class="formRowSep" />
+
+				<xf:if is="{{ $xf.visitor.Profile.dob_day && $xf.visitor.Profile.dob_month && $xf.visitor.Profile.dob_year }}">
+					<xf:formrow
+						label="{{ phrase('date_of_birth') }}"
+						explain="{{ phrase('once_your_birthday_has_been_entered_it_cannot_be_changed') }}">
+
+						<xf:set var="$birthday" value="{{ $xf.visitor.Profile.getBirthday(true) }}" />
+						{{ date($birthday.timeStamp, $birthday.format) }}
+					</xf:formrow>
+				<xf:else />
+					<xf:macro template="helper_user_dob_edit" name="dob_edit" arg-dobData="{$xf.visitor.Profile}" />
+				</xf:if>
+
+				<xf:macro template="helper_account" name="dob_privacy_row" />
+
+				<hr class="formRowSep" />
+
+				<xf:textboxrow name="profile[location]" value="{$xf.visitor.Profile.location_}"
+					maxlength="{{ max_length($xf.visitor.Profile, 'location') }}"
+					label="{{ phrase('location') }}" />
+				<xf:textboxrow name="profile[website]" value="{$xf.visitor.Profile.website_}" type="url"
+					maxlength="{{ max_length($xf.visitor.Profile, 'website') }}"
+					label="{{ phrase('website') }}" />
+
+				<xf:macro template="custom_fields_macros" name="custom_fields_edit" arg-type="users" arg-group="personal" arg-set="{$xf.visitor.Profile.custom_fields}" />
+
+				<hr class="formRowSep" />
+
+				<xf:editorrow name="about" value="{$xf.visitor.Profile.about_}" previewable="0"
+					label="{{ phrase('about_you') }}"/>
+			</xf:if>
+		</div>
+		<xf:if is="$xf.visitor.canEditProfile()">
+			<xf:if contentcheck="true">
+				<h2 class="block-formSectionHeader"><span class="block-formSectionHeader-aligner">{{ phrase('identities') }}</span></h2>
+				<div class="block-body">
+					<xf:contentcheck>
+						<xf:macro template="custom_fields_macros" name="custom_fields_edit" arg-type="users" arg-group="contact" arg-set="{$xf.visitor.Profile.custom_fields}" />
+					</xf:contentcheck>
+				</div>
+			</xf:if>
+			<xf:submitrow icon="save" sticky="true" />
+		</xf:if>
+	</div>
+</xf:form>]]></find>
+    <replace><![CDATA[<xf:title>{{ phrase('account_details') }}</xf:title>
+
+<xf:wrap template="account_wrapper" />
+
+<xf:if is="!$xf.visitor.canEditProfile()">
+    <div class="blockMessage blockMessage--important">{{ phrase('your_full_account_details_not_currently_editable') }}</div>
+</xf:if>
+
+<xf:if is="$pendingUsernameChange">
+    <div class="blockMessage blockMessage--important">
+        {{ phrase('pending_username_change_message', {'username': $pendingUsernameChange.new_username}) }}
+    </div>
+</xf:if>
+
+<div class="block">
+    <div class="block-container">
+        <div class="block-body">
+            <div class="memberHeader {{ $user.Profile.banner_date ? 'memberHeader--withBanner' : '' }}" style="position:relative;">
+                <xf:profilebanner user="$xf.visitor" size="l" class="memberHeader-main" toggle="memberHeader--withBanner">
+                    <div class="memberHeader-mainContent" style="text-align: center;padding:10px;">
+                        <span class="memberHeader-avatar">
+                            <span class="avatarWrapper">
+                                <xf:avatar user="{$xf.visitor}" size="l" href="" notooltip="true" />
+                                <xf:if is="$xf.visitor.canUploadAvatar()">
+                                    <a class="avatarWrapper-update" href="{{ link('account/avatar') }}" data-xf-click="overlay"><span>{{ phrase('edit') }}</span></a>
+                                </xf:if>
+								
+                            </span>
+                                </span>
+                    <h1 class="message-name" style="margin: 5px 0px 0px;">
+                        <span style="font-size:24px!important;font-weight:500; margin-top: 1px;">
+                            <span class="username--style2">{$xf.visitor.username}</span> <a href="{{ link('account/username') }}" class="help_links" style="font-size:20px;" data-xf-click="overlay" title="{{ phrase('change_username') }}" data-xf-init="tooltip"><i class="fas fa-edit"></i></a>
+                <xf:if is="$xf.visitor.canChangeUsername()">
+                    
+                            </xf:if></span></h1>
+                        <div class="memberHeader-blurb" style="text-align:center!important;font-size:11px;"><xf:userbanners user="$xf.visitor" tag="div" class="message-userBanner" itemprop="jobTitle" /></div>
+                        <div class="memberHeader-content memberHeader-content--info">
+                            <xf:if contentcheck="true">
+                            <div class="memberHeader-actionTop" style="position:absolute;top:0;right:0;padding:10px;">
+                                <xf:contentcheck>
+                                <!--[XF:action_top_start]-->
+                                <xf:if contentcheck="true">
+                                    <div class="buttonGroup">
+                                        <xf:contentcheck>
+                                            <xf:if is="$xf.visitor.canUploadProfileBanner()">
+                                                <xf:button href="{{ link('account/banner') }}"
+                                                    class="button--link" overlay="true" title="{{ phrase('edit_profile_banner') }}" data-xf-init="tooltip">
+                                                    <i class="fas fa-camera"></i>
+                                                </xf:button></xf:if>
+                                        </xf:contentcheck>
+                                    </div>
+                                </xf:if>
+                                <!--[XF:action_top_end]-->
+                                </xf:contentcheck>
+                            </div>
+                        </xf:if>
+                        </div></div></xf:profilebanner></div></div></div></div>
+<xf:form action="{{ link('account/account-details') }}" ajax="true" class="block" data-force-flash-message="true">
+    <div class="block-container">
+        <div class="block-body">
+
+            <xf:formrow rowtype="button"
+                label="{{ phrase('email') }}">
+
+                <xf:if is="$xf.visitor.email">
+                    {$xf.visitor.email}
+                <xf:else />
+                    <i>{{ phrase('none') }}</i>
+                </xf:if>
+                <xf:button href="{{ link('account/email') }}" class="button--link" overlay="true">{{ phrase('change') }}</xf:button>
+            </xf:formrow>
+
+                <xf:if is="{{ $xf.visitor.Profile.dob_day && $xf.visitor.Profile.dob_month && $xf.visitor.Profile.dob_year }}">
+                    <xf:formrow
+                        label="{{ phrase('date_of_birth') }}"
+                        explain="{{ phrase('once_your_birthday_has_been_entered_it_cannot_be_changed') }}">
+
+                        <xf:set var="$birthday" value="{{ $xf.visitor.Profile.getBirthday(true) }}" />
+                        {{ date($birthday.timeStamp, $birthday.format) }}
+                    </xf:formrow>
+                <xf:else />
+                    <xf:macro template="helper_user_dob_edit" name="dob_edit" arg-dobData="{$xf.visitor.Profile}" />
+                </xf:if>
+            
+            <xf:if is="$xf.visitor.canEditProfile()">
+                <xf:if is="{{ $xf.visitor.hasPermission('general', 'editCustomTitle') }}">
+                    <xf:textboxrow name="user[custom_title]" value="{$xf.visitor.custom_title_}"
+                        maxlength="{{ max_length($xf.visitor, 'custom_title') }}"
+                        label="{{ phrase('custom_title') }}"
+                        explain="{{ phrase('if_specified_replace_title_that_displays_under_name_in_posts') }}" />
+                </xf:if>
+
+            <hr class="formRowSep" />
+                <xf:textboxrow name="profile[location]" id="location" value="{$xf.visitor.Profile.location_}"
+					maxlength="{{ max_length($xf.visitor.Profile, 'location') }}"
+					label="{{ phrase('location') }}" 
+				    explain="{{ $xf.options.hampelLocationExplain }}"/>
+                <xf:js>
+                <xf:include template ="j_acl_location"/>
+                </xf:js>
+                <xf:textboxrow name="profile[website]" value="{$xf.visitor.Profile.website_}" type="url"
+                    maxlength="{{ max_length($xf.visitor.Profile, 'website') }}"
+                    label="{{ phrase('website') }}" />
+
+                <xf:macro template="custom_fields_macros" name="custom_fields_edit" arg-type="users" arg-group="personal" arg-set="{$xf.visitor.Profile.custom_fields}" />
+
+                <hr class="formRowSep" />
+
+                <xf:editorrow name="about" value="{$xf.visitor.Profile.about_}" previewable="0"
+                    label="{{ phrase('about_you') }}"/>
+            </xf:if>
+        </div>
+        <xf:if is="$xf.visitor.canEditProfile()">
+            <xf:if contentcheck="true">
+                <h2 class="block-formSectionHeader"><span class="block-formSectionHeader-aligner">{{ phrase('identities') }}</span></h2>
+                <div class="block-body">
+                    <xf:contentcheck>
+                        <xf:macro template="custom_fields_macros" name="custom_fields_edit" arg-type="users" arg-group="contact" arg-set="{$xf.visitor.Profile.custom_fields}" />
+                    </xf:contentcheck>
+                </div>
+            </xf:if>
+            <xf:submitrow icon="save" sticky="true" />
+        </xf:if>
+    </div>
+</xf:form>]]></replace>
+  </modification>
+  <modification type="public" template="account_details" modification_key="fix_see_tours_hints" description="Fix &quot;See Tours&quot; and &quot;See Hints&quot; display in Account Preferences page" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:macro template="custom_fields_macros" name="custom_fields_edit" arg-type="users" arg-group="personal" arg-set="{$xf.visitor.Profile.custom_fields}" />]]></find>
+    <replace><![CDATA[<xf:if is="{{ $xf.visitor.hasPermission('XP_TH', 'Can_See_Tours') }}">
+	<xf:if is="{{ $xf.visitor.hasPermission('XP_TH', 'Show_Hide_Tours') }}">
+		<xf:checkboxrow>
+			<xf:option name="xp_th_see_tours" checked="{{ $xf.visitor.xp_th_see_tours }}"
+					   label="{{ phrase('xp_th_see_tours') }}" />
+		</xf:checkboxrow>
+	</xf:if>
+</xf:if>
+
+<xf:if is="{{ $xf.visitor.hasPermission('XP_TH', 'Can_See_Hints') }}">
+	<xf:if is="{{ $xf.visitor.hasPermission('XP_TH', 'Show_Hide_Hints') }}">
+		<xf:checkboxrow>
+			<xf:option name="xp_th_see_hints" checked="{{ $xf.visitor.xp_th_see_hints }}"
+					   label="{{ phrase('xp_th_see_hints') }}" />
+		</xf:checkboxrow>
+	</xf:if>
+</xf:if>
+$0]]></replace>
+  </modification>
+</template_modifications>
