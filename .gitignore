@@ -1,0 +1,7 @@
+# Xenforo development output
+/_output/
+/_releases/
+
+# PhpStorm
+/.idea/
+/.DS_Store/
