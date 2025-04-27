@@ -1,3 +1,4 @@
+![account_detail](https://github.com/user-attachments/assets/5ff9b930-a0d0-460c-bdad-1f6fab6cc5a4)
 Compatible XF 2.x version(s)	2.3 or newer!
 Additional requirement(s)	[J] Auto Complete Location (Recommend)
 
