@@ -1,6 +1,5 @@
 {
-    "src/addons/nick97/CustomAccountDetail/addon.json": "29b3cd90281846c22dc74912d6ba0cf908dafe906aff5afe35ed9c57c4ab3c5a",
-    "src/addons/nick97/CustomAccountDetail/icon.png": "7aee01bc5eef62f24e3b78decd158d3bb832110b564517c8a2867134d68ec77d",
+    "src/addons/nick97/CustomAccountDetail/addon.json": "a3a8f4a1cc88e2dd28f802f378c9a8b31c485035cf02b5b08e98e96d779f8e99",
     "src/addons/nick97/CustomAccountDetail/Setup.php": "1de98f3e293ff2ada22ce8c1933168a8869085e2f63f66f2383af32b08df2510",
     "src/addons/nick97/CustomAccountDetail/_data/activity_summary_definitions.xml": "99d8c2563a31320d66f958fc8bda78613545f5f7959bb3cf5318805e3a3c39d2",
     "src/addons/nick97/CustomAccountDetail/_data/admin_navigation.xml": "064ec797484ac00d5ee37367b50b06846d11f480d00550997712707f8fdac8c0",
@@ -25,8 +24,8 @@
     "src/addons/nick97/CustomAccountDetail/_data/routes.xml": "550fa64f9feedf137dd877b38c2684f94474619d2d83890dbb717a91b50da8f5",
     "src/addons/nick97/CustomAccountDetail/_data/style_properties.xml": "8b8690a8512f01f219dd2da76e3d0c5f62afc1f317b87794a7331c859c36a7a8",
     "src/addons/nick97/CustomAccountDetail/_data/style_property_groups.xml": "68e1879cb3846c42d978487aa8d5145ff3335fc39e58016878824d5cf3fd684c",
-    "src/addons/nick97/CustomAccountDetail/_data/templates.xml": "ad8a7a5e163525d9e87a8847af02b83aaf562cd6187c404d8004f8d17e276c98",
-    "src/addons/nick97/CustomAccountDetail/_data/template_modifications.xml": "c0b5fab024adb4024f5754a0d6edbc471f8f08301572030ec12c16239f445987",
+    "src/addons/nick97/CustomAccountDetail/_data/templates.xml": "95d4b078b90e74e773cef6695ef94c742e74b8d62e6798738f11f0215a58faee",
+    "src/addons/nick97/CustomAccountDetail/_data/template_modifications.xml": "314a1de84d149ebe97c903fb555f38ed685f936aa336beb96bf59ba44c3dd1b2",
     "src/addons/nick97/CustomAccountDetail/_data/widget_definitions.xml": "37e46965256430f24004c2e7f08ba08f9b0d1cbcc4d70e84b3f4e3ffb713e64b",
     "src/addons/nick97/CustomAccountDetail/_data/widget_positions.xml": "a29cee66134f6bc5d75ed9df1eef21096c24401915c5b5c774389c3d7bb2d5b3"
 }

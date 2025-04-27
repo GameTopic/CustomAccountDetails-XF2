@@ -2,25 +2,25 @@
     "legacy_addon_id": "",
     "title": "[NICK97] Custom Account Details",
     "description": "Make your account details page look trendy with this customisation.",
-    "version_id": 220207,
-    "version_string": "2.2.7",
+    "version_id": 22020,
+    "version_string": "2.2.2",
     "dev": "NICK97",
-    "dev_url": "https://tyleraustins.com",
-    "faq_url": "https://tyleraustins.com/help/",
-    "support_url": "https://tyleraustins.com/support/",
+    "dev_url": "https://xen-shop.com",
+    "faq_url": "https://xen-shop.com/help/faq/",
+    "support_url": "https://xen-shop.com/support/",
     "extra_urls": {
         "Gaming Community": "https://cities-mods.com",
-        "Donate": "https://wise.com/pay/me/nickb571"
+        "Donate": "https://www.xen-shop.com/donate/"
     },
     "require": {
         "XF": [
-            2030070,
-            "XenForo 2.3.0+"
+            2020070,
+            "XenForo 2.2.0+"
         ],
         "php": [
-            "8.3.0",
-            "PHP 8.3.0+"
+            "7.2.0",
+            "PHP 7.2.0+"
         ]
     },
-    "icon": "icon.png"
+    "icon": "fa-id-card"
 }
