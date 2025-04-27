@@ -11,4 +11,4 @@ Account detail page looks much better then before
 
 ![account_detail](https://github.com/user-attachments/assets/5ff9b930-a0d0-460c-bdad-1f6fab6cc5a4)
 
-Copyright ©2021-2025 TylerAustin. This item is not authorized for posting on xenforo.com and others web sites except under the xenforo account named TylerAustin, GameNet
+**Copyright ©2021-2025 TylerAustin. This item is not authorized for posting on xenforo.com and others web sites except under the xenforo account named TylerAustin, GameNet**
